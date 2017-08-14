@@ -215,12 +215,12 @@ public class OlympicDetailsDao {
 		}
     	return result;
     }
-    public List<OlympicDataPojo> updateRecordTable(Map<String,String[]> data)
+    public List<OlympicDataPojo> updateRecordTable(Map<String,String[]> data,String oldAthlete,String newAthlete)
     {
+    	System.out.println(oldAthlete+" "+newAthlete);
      	OlympicDataPojo olympicData;
    		List<OlympicDataPojo>displaySelected=new ArrayList<>();
-   		String sport="",discipline="",event="",year="",country="",gender="",medal="",athlete="",city="";
-   		String oldAthlete="";
+   		String sport="",discipline="",event="",year="",country="",gender="",medal="",city="";
    		Iterator<String>it=data.keySet().iterator();
    		while(it.hasNext())
    		{
@@ -240,12 +240,8 @@ public class OlympicDetailsDao {
    				gender=value[0];
    			if(key.equalsIgnoreCase("medalId"))
    				medal=value[0];
-   			if(key.equalsIgnoreCase("athleteId"))
-   				athlete=value[0];
    			if(key.equalsIgnoreCase("cityId"))
    				city=value[0];
-   			if(key.equalsIgnoreCase("oldAthleteId"))
-   				oldAthlete=value[0];
    		}
     	int id=0;
     	
@@ -264,7 +260,7 @@ public class OlympicDetailsDao {
 
        	preparedStatement=DbConnection.getConnection().prepareStatement("update athlete set athlete=? where year=? and event_id=? and country=? and gender=? and medal=? and athlete=?");
    		
-       	preparedStatement.setString(1, athlete);
+       	preparedStatement.setString(1, newAthlete);
    		preparedStatement.setInt(2,Integer.parseInt(year));
    		preparedStatement.setInt(3, id);
    		preparedStatement.setString(4, country);
@@ -273,7 +269,7 @@ public class OlympicDetailsDao {
    		preparedStatement.setString(7, oldAthlete);
    		preparedStatement.executeUpdate();
 
-   		olympicData=new OlympicDataPojo(Integer.parseInt(year), city, sport, discipline, athlete, country, gender, event, medal);
+   		olympicData=new OlympicDataPojo(Integer.parseInt(year), city, sport, discipline, newAthlete, country, gender, event, medal);
    		displaySelected.add(olympicData);
    		
 		} catch (SQLException e) {
@@ -456,7 +452,7 @@ public class OlympicDetailsDao {
    		
    		while(resultAthlete.next())
    		{
-   			olympicData=new OlympicDataPojo(Integer.parseInt(year), city, sport, discipline, athlete, country, gender, event, medal);
+   			olympicData=new OlympicDataPojo(Integer.parseInt(year), city, sport, discipline, resultAthlete.getString(5), country, gender, event, medal);
    			displaySelected.add(olympicData);
    		}
 		} catch (SQLException e) {

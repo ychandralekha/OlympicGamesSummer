@@ -168,44 +168,33 @@ public class OlympicUserOperationsServlet extends HttpServlet {
 		}
 		if(options.containsKey("updateDeleteRecordPage"))
 		{
-			
-			if(options.get("editButton")[0].equals("edit"))
+			String oldAthlete="",athlete="",athleteOld="";
+			String newAthlete[];
+			Iterator<String>it1=options.keySet().iterator();
+			while(it1.hasNext())
 			{
+				String key=it1.next();
+				String value[]=options.get(key);
+				//System.out.println(key+" :: "+value[0]);
+				
+				if(key.equals("edit"))
+				{
+					System.out.println("sucess.........");
 				Iterator<String>it=options.keySet().iterator();
 				while(it.hasNext())
 				{
-					String editB=it.next();
-					System.out.println(editB);
-					if(editB.equalsIgnoreCase("editButton"))
-					System.out.println(editB);
+					oldAthlete=it.next();
+					newAthlete=options.get(oldAthlete);
+					//System.out.println(editB+" :: "+editValue[0]);
+					if(oldAthlete.equalsIgnoreCase(value[0]))
+					{
+						athlete=newAthlete[0];
+						athleteOld=oldAthlete;
+						System.out.println(oldAthlete+"::"+newAthlete[0]);
+					}
 				}
-			OlympicDataService olympicService=new OlympicDataService();
-			
-			Map<Integer, String>hostValues=new LinkedHashMap<Integer, String>();
-			Map<String, Map<String,List<String>>>sportDisciplineEvent=new HashMap<>();
-			Set<String>country=new HashSet<>();
-			try {
-				hostValues=olympicService.selectHost();
-				request.setAttribute("yearList", hostValues);
-				sportDisciplineEvent=olympicService.selectDiscipline();
-				request.setAttribute("sportList", sportDisciplineEvent);
-				country=olympicService.selectCountry();
-				request.setAttribute("countryList", country);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			
-			List<OlympicDataPojo>updateRecord=new ArrayList<OlympicDataPojo>();
-			updateRecord=olympicService.updateRecord(options);
-			
-			request.setAttribute("displayRecord", updateRecord);
-			RequestDispatcher requestDispatcher=request.getRequestDispatcher("UpdatePage.jsp");
-			requestDispatcher.forward(request,response);
-			}
-			if(options.get("editButton")[0].equals("delete"))
-			{
 				OlympicDataService olympicService=new OlympicDataService();
-				
+			
 				Map<Integer, String>hostValues=new LinkedHashMap<Integer, String>();
 				Map<String, Map<String,List<String>>>sportDisciplineEvent=new HashMap<>();
 				Set<String>country=new HashSet<>();
@@ -220,15 +209,41 @@ public class OlympicUserOperationsServlet extends HttpServlet {
 					e.printStackTrace();
 				}
 				
-				List<OlympicDataPojo>deleteRecord=new ArrayList<OlympicDataPojo>();
-				boolean deleteStatus=olympicService.deleteRecord(options);
-				if(deleteStatus==true)
-				deleteRecord=olympicService.deleteRemaining(options);
-				request.setAttribute("displayRecord", deleteRecord);
+				
+				List<OlympicDataPojo>updateRecord=new ArrayList<OlympicDataPojo>();
+				updateRecord=olympicService.updateRecord(options,athleteOld,athlete);
+				
+				request.setAttribute("displayRecord", updateRecord);
 				RequestDispatcher requestDispatcher=request.getRequestDispatcher("UpdatePage.jsp");
 				requestDispatcher.forward(request,response);
+				}
+				if(options.get(key)[0].equals("delete"))
+				{
+					OlympicDataService olympicService=new OlympicDataService();
+				
+					Map<Integer, String>hostValues=new LinkedHashMap<Integer, String>();
+					Map<String, Map<String,List<String>>>sportDisciplineEvent=new HashMap<>();
+					Set<String>country=new HashSet<>();
+					try {
+						hostValues=olympicService.selectHost();
+						request.setAttribute("yearList", hostValues);
+						sportDisciplineEvent=olympicService.selectDiscipline();
+						request.setAttribute("sportList", sportDisciplineEvent);
+						country=olympicService.selectCountry();
+						request.setAttribute("countryList", country);
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				
+					List<OlympicDataPojo>deleteRecord=new ArrayList<OlympicDataPojo>();
+					boolean deleteStatus=olympicService.deleteRecord(options);
+					if(deleteStatus==true)
+						deleteRecord=olympicService.deleteRemaining(options);
+					request.setAttribute("displayRecord", deleteRecord);
+					RequestDispatcher requestDispatcher=request.getRequestDispatcher("UpdatePage.jsp");
+					requestDispatcher.forward(request,response);
+				}
 			}
-			
 		}
 		if(options.containsKey("searchPage"))
 		{

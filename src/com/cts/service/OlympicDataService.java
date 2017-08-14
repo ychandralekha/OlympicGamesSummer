@@ -44,10 +44,10 @@ public boolean insertRecord(String addData) throws SQLException
 	OlympicDetailsDao olympicDetails=new OlympicDetailsDao();
 	return olympicDetails.insertRecordTable(addData);
 }
-public List<OlympicDataPojo> updateRecord(Map<String, String[]> data)
+public List<OlympicDataPojo> updateRecord(Map<String, String[]> data,String oldAthlete,String newAthlete)
 {
 	OlympicDetailsDao olympicDetails=new OlympicDetailsDao();
-	return olympicDetails.updateRecordTable(data);
+	return olympicDetails.updateRecordTable(data,oldAthlete,newAthlete);
 }
 public List<OlympicDataPojo>displayRecord(Map<String, String[]> data)
 {

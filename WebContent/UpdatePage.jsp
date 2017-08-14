@@ -24,14 +24,19 @@ function getEvent()
 	var discipline=document.getElementById("discipline").value;
 	window.location.href="http://localhost:8080/OlympicGamesSummer1/OlympicUserOperationsServlet?sport="+sport+"&discipline="+discipline+"&actionevent=getdiscipline"+"&updatepage=value";
 }
-function kk1()
+function editFunction(athlete)
 {
-    document.getElementById("athleteId").readOnly  = false;
+    document.getElementById(athlete).readOnly  = false;
+    document.getElementById(newAthlete).value=athlete;
 }
-function kk2()
+function deleteFunction(athlete)
 {
-    document.getElementById("athleteId").readOnly  = true;
+    document.getElementById(athlete).readOnly  = true;
   
+}
+function newAthlete(a)
+{
+	alert(a);
 }
 </script>
 </head>
@@ -133,7 +138,7 @@ function kk2()
                 <TH>Event</TH>
                 <TH>Medal</TH>
             </TR>
-            
+      
             <TR>
                <c:forEach items="${displayRecord}" var="out">
 		<tr>
@@ -141,15 +146,16 @@ function kk2()
                 <td><input type="text" name="cityId" id="cityId" value="${out.city}" readonly></td>
                 <td><input type="text" name="sportId" id="sportId" value="${out.sport}" readonly></td>
                 <td><input type="text" name="disciplineId" id="disciplineId" value="${out.discipline}" readonly></td>
-                <td><input type="text" name="athleteId" id="athleteId" value="${out.athlete}" readonly></td>
+                <td><input type="text" name="${out.athlete}" id="${out.athlete}" value="${out.athlete}" readonly></td>
 				<td><input type="text" name="countryId" id="countryId" value="${out.country}" readonly></td>
 				<td><input type="text" name="genderId" id="genderId" value="${out.gender}" readonly></td>
 				<td><input type="text" name="eventId" id="eventId" value="${out.event}" readonly></td>
 				<td><input type="text" name="medalId" id="medalId" value="${out.medal}" readonly></td>
-				 <td><input type="hidden" name="oldAthleteId" id="oldAthleteId" value="${out.athlete}"></td>
-				<td><input type="radio" id="editButton" value="edit" name="editButton" onclick="kk1()"/>EDIT</td>
-				<td><input type="radio" id="deleteButton" value="delete" name="editButton" onclick="kk2()"/>DELETE</td>
-				<td><input type="submit" value="submit" name="updateDeleteRecordPage"/></td>
+				<td><input type="radio" id="editButton"  value="${out.athlete}" name="edit" onclick="editFunction('${out.athlete}')"/>EDIT</td>
+				<td><input type="radio" id="deleteButton" value="delete" name="${out.athlete}" onclick="deleteFunction('${out.athlete}')"/>DELETE</td>
+				<td><input type="hidden" name="${out.athlete}"  id="newAthlete" value="newAthlete"></td>
+				<td><input type="hidden" name="${out.athlete}"  id="oldAthleteId" value="oldAthleteId"></td>
+				<td><input type="submit" value="submit" name="updateDeleteRecordPage" onclick="newAthlete('${out.athlete}')" /></td>
         </tr>
         
         </c:forEach> 
