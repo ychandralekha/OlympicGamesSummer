@@ -93,10 +93,12 @@ public class OlympicDataTesting {
 		when(olympicService.insertRecord(record)).thenReturn(true);
 		
 	}
-//	public List<OlympicDataPojo> updateRecord(Map<String, String[]> data)
-//	{
-//		
-//	}
+	public void testUpdateRecord()
+	{
+		List<OlympicDataPojo>updatedRecord=new ArrayList<>();
+		
+		
+	}
 //	public List<OlympicDataPojo>displayRecord(Map<String, String[]> data)
 //	{
 //		
