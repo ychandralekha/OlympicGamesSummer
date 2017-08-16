@@ -32,6 +32,7 @@ function editFunction(athlete)
 function deleteFunction(athlete)
 {
     document.getElementById(athlete).readOnly  = true;
+    document.getElementById(newAthlete).value=athlete;
   
 }
 function newAthlete(a)
@@ -152,7 +153,7 @@ function newAthlete(a)
 				<td><input type="text" name="eventId" id="eventId" value="${out.event}" readonly></td>
 				<td><input type="text" name="medalId" id="medalId" value="${out.medal}" readonly></td>
 				<td><input type="radio" id="editButton"  value="${out.athlete}" name="edit" onclick="editFunction('${out.athlete}')"/>EDIT</td>
-				<td><input type="radio" id="deleteButton" value="delete" name="${out.athlete}" onclick="deleteFunction('${out.athlete}')"/>DELETE</td>
+				<td><input type="radio" id="deleteButton" name="delete" value="${out.athlete}" onclick="deleteFunction('${out.athlete}')"/>DELETE</td>
 				<td><input type="hidden" name="${out.athlete}"  id="newAthlete" value="newAthlete"></td>
 				<td><input type="hidden" name="${out.athlete}"  id="oldAthleteId" value="oldAthleteId"></td>
 				<td><input type="submit" value="submit" name="updateDeleteRecordPage" onclick="newAthlete('${out.athlete}')" /></td>

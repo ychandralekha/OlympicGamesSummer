@@ -54,15 +54,10 @@ public List<OlympicDataPojo>displayRecord(Map<String, String[]> data)
 	OlympicDetailsDao olympicDetails=new OlympicDetailsDao();
 	return olympicDetails.displaySelectedRecord(data);
 }
-public boolean deleteRecord(Map<String, String[]> data)
+public List<OlympicDataPojo> deleteRecord(Map<String, String[]> data,String athlete)
 {
 	OlympicDetailsDao olympicDetails=new OlympicDetailsDao();
-	return olympicDetails.deleteRecordTable(data);
-}
-public List<OlympicDataPojo> deleteRemaining(Map<String, String[]> data)
-{
-	OlympicDetailsDao olympicDetails=new OlympicDetailsDao();
-	return olympicDetails.displayRemainingRecord(data);
+	return olympicDetails.deleteRecordTable(data,athlete);
 }
 public List<OlympicDataPojo> filterSort(Map<String,String[]>filter)
 {

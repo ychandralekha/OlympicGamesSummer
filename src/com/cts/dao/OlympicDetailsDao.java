@@ -269,9 +269,21 @@ public class OlympicDetailsDao {
    		preparedStatement.setString(7, oldAthlete);
    		preparedStatement.executeUpdate();
 
-   		olympicData=new OlympicDataPojo(Integer.parseInt(year), city, sport, discipline, newAthlete, country, gender, event, medal);
-   		displaySelected.add(olympicData);
+   		preparedStatement=DbConnection.getConnection().prepareStatement("select athlete from athlete where year=? and event_id=? and country=? and gender=? and medal=? and display_id=?");
    		
+   		preparedStatement.setInt(1,Integer.parseInt(year));
+   		preparedStatement.setInt(2, id);
+   		preparedStatement.setString(3, country);
+   		preparedStatement.setString(4, gender);
+   		preparedStatement.setString(5, medal);
+   		preparedStatement.setString(6,"1");
+   		resultId=preparedStatement.executeQuery();
+   		
+   		while(resultId.next())
+   		{
+   		olympicData=new OlympicDataPojo(Integer.parseInt(year), city, sport, discipline, resultId.getString(1), country, gender, event, medal);
+   		displaySelected.add(olympicData);
+   		}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -341,10 +353,11 @@ public class OlympicDetailsDao {
 		//displaySelected.forEach(System.out::println);
     	return displaySelected;
     }
-    public boolean deleteRecordTable(Map<String, String[]> data)
+    public List<OlympicDataPojo> deleteRecordTable(Map<String, String[]> data,String athlete)
     {
-    	boolean status=false;
-   		String sport="",discipline="",event="",year="",country="",gender="",medal="",athlete="";
+    	OlympicDataPojo olympicData;
+   		String sport="",discipline="",event="",year="",country="",gender="",medal="",city="";
+   		List<OlympicDataPojo>displaySelected=new ArrayList<>();
    		Iterator<String>it=data.keySet().iterator();
    		while(it.hasNext())
    		{
@@ -364,8 +377,8 @@ public class OlympicDetailsDao {
    				gender=value[0];
    			if(key.equalsIgnoreCase("medalId"))
    				medal=value[0];
-   			if(key.equalsIgnoreCase("athleteId"))
-   				athlete=value[0];
+   			if(key.equalsIgnoreCase("cityId"))
+				city=value[0];
    		}
    		System.out.println(sport+" "+discipline+" "+event+" "+year+" "+country+" "+gender+" "+medal+" "+athlete);
     	int id=0;
@@ -391,56 +404,8 @@ public class OlympicDetailsDao {
    		preparedStatement.setString(6, medal);
    		preparedStatement.setString(7, athlete);
    		preparedStatement.executeUpdate();
-   		status=true;
    		
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		System.out.println(status);
-    	return status;
-    }
-    public List<OlympicDataPojo> displayRemainingRecord(Map<String,String[]> data)
-    {
-    	List<OlympicDataPojo>displaySelected=new ArrayList<>();
-   		String sport="",discipline="",event="",year="",country="",gender="",athlete="",medal="",city="";
-   		Iterator<String>it=data.keySet().iterator();
-   		while(it.hasNext())
-   		{
-   			String key=it.next();
-   			String[] value=data.get(key);
-   			if(key.equalsIgnoreCase("sportId"))
-   				sport=value[0];
-   			if(key.equalsIgnoreCase("disciplineId"))
-   				discipline=value[0];
-   			if(key.equalsIgnoreCase("eventId"))
-   				event=value[0];
-   			if(key.equalsIgnoreCase("yearId"))
-   				year=value[0];
-   			if(key.equalsIgnoreCase("countryId"))
-   				country=value[0];
-   			if(key.equalsIgnoreCase("genderId"))
-   				gender=value[0];
-   			if(key.equalsIgnoreCase("medalId"))
-   				medal=value[0];
-   			if(key.equalsIgnoreCase("athleteId"))
-   				athlete=value[0];
-   			if(key.equalsIgnoreCase("cityId"))
-   				city=value[0];
-   		}
-    	OlympicDataPojo olympicData;
-    	int id=0;
-   	 PreparedStatement preparedStatement;
-		try {	
-        preparedStatement=DbConnection.getConnection().prepareStatement("select id from discipline where sport=? and discipline=? and event=?");
-       	preparedStatement.setString(1,sport );
-       	preparedStatement.setString(2,discipline);
-       	preparedStatement.setString(3,event);
-       	ResultSet resultId=preparedStatement.executeQuery();
-       	while(resultId.next())
-       	{
-       		id=resultId.getInt(1);
-       	}
-       	preparedStatement=DbConnection.getConnection().prepareStatement("select * from athlete where year=? and event_id=? and country=? and gender=? and medal=? and display_id=?");
+   		preparedStatement=DbConnection.getConnection().prepareStatement("select athlete from athlete where year=? and event_id=? and country=? and gender=? and medal=? and display_id=?");
    		
    		preparedStatement.setInt(1,Integer.parseInt(year));
    		preparedStatement.setInt(2, id);
@@ -449,17 +414,19 @@ public class OlympicDetailsDao {
    		preparedStatement.setString(5, medal);
    		preparedStatement.setString(6,"1");
    		ResultSet resultAthlete=preparedStatement.executeQuery();
-   		
+   		System.out.println(city+" =city");
    		while(resultAthlete.next())
    		{
-   			olympicData=new OlympicDataPojo(Integer.parseInt(year), city, sport, discipline, resultAthlete.getString(5), country, gender, event, medal);
+   			System.out.println(resultAthlete.getString(1));
+   			olympicData=new OlympicDataPojo(Integer.parseInt(year), city, sport, discipline, resultAthlete.getString(1), country, gender, event, medal);
    			displaySelected.add(olympicData);
    		}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		//displaySelected.forEach(System.out::println);
     	return displaySelected;
-    } 
+    }
     public List<OlympicDataPojo> generateSqlQuery(Map<String,String[]>filter)
     {
     			List<OlympicDataPojo>result=new ArrayList<OlympicDataPojo>();

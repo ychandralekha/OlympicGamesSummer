@@ -1,6 +1,5 @@
 package com.cts.olympicservlets;
 
-import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -132,7 +131,9 @@ public class OlympicUserOperationsServlet extends HttpServlet {
 			String record=yearCity[0]+","+yearCity[1]+","+sport+","+discipline+","+athlete+","+country+","+gender+","+event+","+medal;
 			OlympicDataService olympicService=new OlympicDataService();
 			try {
+				System.out.println(record);
 				olympicService.insertRecord(record);
+				System.out.println("record inserted");
 				RequestDispatcher requestDispatcher=request.getRequestDispatcher("UserLogin.jsp");
 				requestDispatcher.forward(request,response);
 			} catch (SQLException e) {
@@ -175,50 +176,50 @@ public class OlympicUserOperationsServlet extends HttpServlet {
 			{
 				String key=it1.next();
 				String value[]=options.get(key);
-				//System.out.println(key+" :: "+value[0]);
+				System.out.println(key+" :: "+value[0]);
 				
 				if(key.equals("edit"))
 				{
 					System.out.println("sucess.........");
-				Iterator<String>it=options.keySet().iterator();
-				while(it.hasNext())
-				{
-					oldAthlete=it.next();
-					newAthlete=options.get(oldAthlete);
-					//System.out.println(editB+" :: "+editValue[0]);
-					if(oldAthlete.equalsIgnoreCase(value[0]))
+					Iterator<String>it=options.keySet().iterator();
+					while(it.hasNext())
 					{
-						athlete=newAthlete[0];
-						athleteOld=oldAthlete;
-						System.out.println(oldAthlete+"::"+newAthlete[0]);
+						oldAthlete=it.next();
+						newAthlete=options.get(oldAthlete);
+						//System.out.println(editB+" :: "+editValue[0]);
+						if(oldAthlete.equalsIgnoreCase(value[0]))
+						{
+							athlete=newAthlete[0];
+							athleteOld=oldAthlete;
+							System.out.println(oldAthlete+"::"+newAthlete[0]);
+						}
 					}
-				}
-				OlympicDataService olympicService=new OlympicDataService();
-			
-				Map<Integer, String>hostValues=new LinkedHashMap<Integer, String>();
-				Map<String, Map<String,List<String>>>sportDisciplineEvent=new HashMap<>();
-				Set<String>country=new HashSet<>();
-				try {
-					hostValues=olympicService.selectHost();
-					request.setAttribute("yearList", hostValues);
-					sportDisciplineEvent=olympicService.selectDiscipline();
-					request.setAttribute("sportList", sportDisciplineEvent);
-					country=olympicService.selectCountry();
-					request.setAttribute("countryList", country);
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
+					OlympicDataService olympicService=new OlympicDataService();
+					
+					Map<Integer, String>hostValues=new LinkedHashMap<Integer, String>();
+					Map<String, Map<String,List<String>>>sportDisciplineEvent=new HashMap<>();
+					Set<String>country=new HashSet<>();
+					try {
+						hostValues=olympicService.selectHost();
+						request.setAttribute("yearList", hostValues);
+						sportDisciplineEvent=olympicService.selectDiscipline();
+						request.setAttribute("sportList", sportDisciplineEvent);
+						country=olympicService.selectCountry();
+						request.setAttribute("countryList", country);
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
 				
 				
-				List<OlympicDataPojo>updateRecord=new ArrayList<OlympicDataPojo>();
-				updateRecord=olympicService.updateRecord(options,athleteOld,athlete);
-				
-				request.setAttribute("displayRecord", updateRecord);
-				RequestDispatcher requestDispatcher=request.getRequestDispatcher("UpdatePage.jsp");
-				requestDispatcher.forward(request,response);
+					List<OlympicDataPojo>updateRecord=new ArrayList<OlympicDataPojo>();
+					updateRecord=olympicService.updateRecord(options,athleteOld,athlete);
+					request.setAttribute("displayRecord", updateRecord);
+					RequestDispatcher requestDispatcher=request.getRequestDispatcher("UpdatePage.jsp");
+					requestDispatcher.forward(request,response);
 				}
-				if(options.get(key)[0].equals("delete"))
+				if(key.equals("delete"))
 				{
+					System.out.println("the value is "+value[0]);
 					OlympicDataService olympicService=new OlympicDataService();
 				
 					Map<Integer, String>hostValues=new LinkedHashMap<Integer, String>();
@@ -236,9 +237,7 @@ public class OlympicUserOperationsServlet extends HttpServlet {
 					}
 				
 					List<OlympicDataPojo>deleteRecord=new ArrayList<OlympicDataPojo>();
-					boolean deleteStatus=olympicService.deleteRecord(options);
-					if(deleteStatus==true)
-						deleteRecord=olympicService.deleteRemaining(options);
+					deleteRecord=olympicService.deleteRecord(options,value[0]);
 					request.setAttribute("displayRecord", deleteRecord);
 					RequestDispatcher requestDispatcher=request.getRequestDispatcher("UpdatePage.jsp");
 					requestDispatcher.forward(request,response);
