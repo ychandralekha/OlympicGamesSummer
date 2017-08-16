@@ -26,7 +26,7 @@ public class OlympicDataTesting {
 	public void setUp() {
 		olympicService = mock(OlympicDataService.class);
 		list.add("2000,Sydney,Aquatics,Diving,\"SAUTIN, Dmitry\",Rus,Men,10M Platform,Bronze");
-		list.add("2000,Sydney,Aquatics,Diving,\"XIONG, Ni\",CHN,Men,3M Springboard,Gold");
+		list.add("2004,Athens,Aquatics,Diving,\"XIONG, Ni\",CHN,Men,3M Springboard,Gold");
 	}
 	@Test
 	public void testLoadHost() throws SQLException
@@ -34,12 +34,13 @@ public class OlympicDataTesting {
 		List<OlympicDataPojo> data = new ArrayList<OlympicDataPojo>();
 		OlympicDataPojo op=null;
 		op = new OlympicDataPojo(2000, "Sydney", "Aquatics", "Diving",
-				"SAUTIN, Dmitry", "Rus", "Men", "10M Platform", "Bronze");
+				"\"SAUTIN, Dmitry\"", "Rus", "Men", "10M Platform", "Bronze");
 		data.add(op);
-		op = new OlympicDataPojo(2004, "Athens", "Aquatics", "Diving", "XIONG, Ni",
+		op = new OlympicDataPojo(2004, "Athens", "Aquatics", "Diving", "\"XIONG, Ni\"",
 				"CHN", "Men", "3M Springboard", "Gold");
 		data.add(op);
 		when(olympicService.loadHost(data)).thenReturn(list);
+		//assertEquals(list, data);
 	}
 	@Test
 	public void testLoadDiscipline() throws SQLException
@@ -93,30 +94,103 @@ public class OlympicDataTesting {
 		when(olympicService.insertRecord(record)).thenReturn(true);
 		
 	}
+	@Test
 	public void testUpdateRecord()
 	{
 		List<OlympicDataPojo>updatedRecord=new ArrayList<>();
-		
-		
+		Map<String, String[]>updateParameters=new HashMap<>();
+		String input[] = new String[1];
+		input[0]="Aquatics";
+		updateParameters.put("sportId",input);
+		input[0]="Diving";
+		updateParameters.put("disciplineId",input);
+		input[0]="10M Platform";
+		updateParameters.put("eventId",input);
+		input[0]="2000";
+		updateParameters.put("yearId",input);
+		input[0]="Rus";
+		updateParameters.put("countryId",input);
+		input[0]="Men";
+		updateParameters.put("genderId",input);
+		input[0]="Bronze";
+		updateParameters.put("medalId",input);
+		input[0]="Sydney";
+		updateParameters.put("cityId",input);
+		when(olympicService.updateRecord(updateParameters,"SAUTIN, Dmitry","chandu")).thenReturn(updatedRecord);
+		assertEquals(updatedRecord, olympicService.updateRecord(updateParameters,"SAUTIN, Dmitry","chandu"));
 	}
-//	public List<OlympicDataPojo>displayRecord(Map<String, String[]> data)
-//	{
-//		
-//	}
-//	public boolean deleteRecord(Map<String, String[]> data)
-//	{
-//		
-//	}
-//	public List<OlympicDataPojo> deleteRemaining(Map<String, String[]> data)
-//	{
-//		
-//	}
-//	public List<OlympicDataPojo> filterSort(Map<String,String[]>filter)
-//	{
-//		
-//	}
-//	public boolean filterDisplay(List<OlympicDataPojo>filteredData)
-//	{
-//		
-//	}
+	@Test
+	public void testdisplayRecord()
+	{
+		List<OlympicDataPojo>updatedRecord=new ArrayList<>();
+		Map<String, String[]>updateParameters=new HashMap<>();
+		String input[] = new String[1];
+		input[0]="Aquatics";
+		updateParameters.put("sportselect",input);
+		input[0]="Diving";
+		updateParameters.put("disciplineselect",input);
+		input[0]="10M Platform";
+		updateParameters.put("eventselect",input);
+		input[0]="2000=Sydney";
+		updateParameters.put("yearselect",input);
+		input[0]="Rus";
+		updateParameters.put("countryselect",input);
+		input[0]="Men";
+		updateParameters.put("genderselect",input);
+		input[0]="Bronze";
+		updateParameters.put("medalselect",input);
+		when(olympicService.displayRecord(updateParameters)).thenReturn(updatedRecord);
+		assertEquals(updatedRecord, olympicService.displayRecord(updateParameters));
+	}
+	@Test
+	public void deleteRecord()
+	{
+		List<OlympicDataPojo>updatedRecord=new ArrayList<>();
+		Map<String, String[]>updateParameters=new HashMap<>();
+		String input[] = {"Aquatics"};
+		input[0]="Aquatics";
+		updateParameters.put("sportId",input);
+		input[0]="Diving";
+		updateParameters.put("disciplineId",input);
+		input[0]="10M Platform";
+		updateParameters.put("eventId",input);
+		input[0]="2000";
+		updateParameters.put("yearId",input);
+		input[0]="Rus";
+		updateParameters.put("countryId",input);
+		input[0]="Men";
+		updateParameters.put("genderId",input);
+		input[0]="Bronze";
+		updateParameters.put("medalId",input);
+		input[0]="Sydney";
+		updateParameters.put("cityId",input);
+		when(olympicService.deleteRecord(updateParameters,"SAUTIN, Dmitry")).thenReturn(updatedRecord);
+		assertEquals(updatedRecord, olympicService.deleteRecord(updateParameters,"SAUTIN, Dmitry"));
+	}
+	@Test
+	public void testfilterSort()
+	{
+		List<OlympicDataPojo>updatedRecord=new ArrayList<>();
+		Map<String, String[]>updateParameters=new HashMap<>();
+		String[] testValue = new String[1];
+		testValue[0] = "P";
+		updateParameters.put("country", testValue);
+		String[] testValue1 = new String[1];
+		testValue1[0] = "gender"; 
+		updateParameters.put("sortingSelect", testValue1);
+		when(olympicService.filterSort(updateParameters)).thenReturn(updatedRecord);
+		//assertEquals(updatedRecord, updateParameters);
+	}
+	@Test
+	public void testfilterDisplay()
+	{
+		List<OlympicDataPojo>filteredData=new ArrayList<>();
+		List<OlympicDataPojo> data = new ArrayList<OlympicDataPojo>();
+		OlympicDataPojo op=null;
+		op = new OlympicDataPojo(2000, "Sydney", "Aquatics", "Diving",
+				"SAUTIN, Dmitry", "Rus", "Men", "10M Platform", "Bronze");
+		data.add(op);
+		when(olympicService.filterDisplay(filteredData)).thenReturn(true);
+		assertEquals(true, olympicService.filterDisplay(filteredData));
+	}
 }
