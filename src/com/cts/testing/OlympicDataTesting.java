@@ -40,7 +40,7 @@ public class OlympicDataTesting {
 				"CHN", "Men", "3M Springboard", "Gold");
 		data.add(op);
 		when(olympicService.loadHost(data)).thenReturn(list);
-		//assertEquals(list, data);
+		assertEquals(list, olympicService.loadHost(data));
 	}
 	@Test
 	public void testLoadDiscipline() throws SQLException
@@ -54,6 +54,7 @@ public class OlympicDataTesting {
 				"CHN", "Men", "3M Springboard", "Gold");
 		data.add(op);
 		when(olympicService.loadHost(data)).thenReturn(list);
+		assertEquals(list, olympicService.loadHost(data));
 	}
 	@Test
 	public void testLoadAthlete() throws SQLException
@@ -67,32 +68,35 @@ public class OlympicDataTesting {
 				"CHN", "Men", "3M Springboard", "Gold");
 		data.add(op);
 		when(olympicService.loadHost(data)).thenReturn(list);
+		assertEquals(list, olympicService.loadHost(data));
 	}
 	@Test
 	public void testselectHost() throws SQLException
 	{
 		Map<Integer, String>host=new HashMap<Integer, String>();
 		when(olympicService.selectHost()).thenReturn(host);
-		
+		assertEquals(host, olympicService.selectHost());
 	}
 	@Test
 	public void selectDiscipline() throws SQLException
 	{
 		Map<String,Map<String, List<String>>>discipline=new HashMap<>();
 		when(olympicService.selectDiscipline()).thenReturn(discipline);
+		assertEquals(discipline, olympicService.selectDiscipline());
 	}
 	@Test
 	public void selectCountry() throws SQLException
 	{
 		Set<String>country=new HashSet<>();
 		when(olympicService.selectCountry()).thenReturn(country);
+		assertEquals(country, olympicService.selectCountry());
 	}
 	@Test
 	public void testinsertRecord() throws SQLException
 	{
 		String record="2000,Sydney,Aquatics,Diving,\"SAUTIN, Dmitry\",Rus,Men,10M Platform,Bronze";
 		when(olympicService.insertRecord(record)).thenReturn(true);
-		
+		assertEquals(true, olympicService.insertRecord(record));
 	}
 	@Test
 	public void testUpdateRecord()
@@ -179,7 +183,7 @@ public class OlympicDataTesting {
 		testValue1[0] = "gender"; 
 		updateParameters.put("sortingSelect", testValue1);
 		when(olympicService.filterSort(updateParameters)).thenReturn(updatedRecord);
-		//assertEquals(updatedRecord, updateParameters);
+		assertEquals(updatedRecord, olympicService.filterSort(updateParameters));
 	}
 	@Test
 	public void testfilterDisplay()

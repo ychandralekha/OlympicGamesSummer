@@ -82,4 +82,59 @@ public class OlympicDataPojo {
 	{
 		return this.year+","+this.city+","+this.sport+","+this.discipline+","+this.athlete+","+this.country+","+this.gender+","+this.event+","+this.medal;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		OlympicDataPojo other = (OlympicDataPojo) obj;
+		if (athlete == null) {
+			if (other.athlete != null)
+				return false;
+		} else if (!athlete.equals(other.athlete))
+			return false;
+		if (city == null) {
+			if (other.city != null)
+				return false;
+		} else if (!city.equals(other.city))
+			return false;
+		if (country == null) {
+			if (other.country != null)
+				return false;
+		} else if (!country.equals(other.country))
+			return false;
+		if (discipline == null) {
+			if (other.discipline != null)
+				return false;
+		} else if (!discipline.equals(other.discipline))
+			return false;
+		if (event == null) {
+			if (other.event != null)
+				return false;
+		} else if (!event.equals(other.event))
+			return false;
+		if (gender == null) {
+			if (other.gender != null)
+				return false;
+		} else if (!gender.equals(other.gender))
+			return false;
+		if (medal == null) {
+			if (other.medal != null)
+				return false;
+		} else if (!medal.equals(other.medal))
+			return false;
+		if (sport == null) {
+			if (other.sport != null)
+				return false;
+		} else if (!sport.equals(other.sport))
+			return false;
+		if (year != other.year)
+			return false;
+		return true;
+	}
+
 }
