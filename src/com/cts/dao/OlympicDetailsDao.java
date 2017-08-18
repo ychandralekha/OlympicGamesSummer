@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.cts.constants.QueryConstants;
 import com.cts.olympicpojo.OlympicDataPojo;
 
 public class OlympicDetailsDao {
@@ -27,7 +28,7 @@ public class OlympicDetailsDao {
             uniqueData.add(list.getYear()+","+list.getCity());
         }
         uniqueData.forEach(System.out::println);
-        PreparedStatement preparedStatement=DbConnection.getConnection().prepareStatement("insert into host values(?,?)");
+        PreparedStatement preparedStatement=DbConnection.getConnection().prepareStatement(QueryConstants.INSERT_HOST);
         for(String listData:uniqueData)
         {
             String []s=listData.split(",");
@@ -50,7 +51,7 @@ public class OlympicDetailsDao {
             uniqueData.add(list.getSport()+","+list.getDiscipline()+","+list.getEvent());
         }
         uniqueData.forEach(System.out::println);
-        PreparedStatement preparedStatement=DbConnection.getConnection().prepareStatement("insert into discipline(sport,discipline,event) values(?,?,?)");
+        PreparedStatement preparedStatement=DbConnection.getConnection().prepareStatement(QueryConstants.INSERT_DISCIPLINE);
         for(String listData:uniqueData)
         {
             String []s=listData.split(",");
@@ -74,7 +75,7 @@ public class OlympicDetailsDao {
         {
         	try{
         		int id=0;
-            	preparedStatement=DbConnection.getConnection().prepareStatement("select id from discipline where sport=? and discipline=? and event=?");
+            	preparedStatement=DbConnection.getConnection().prepareStatement(QueryConstants.SELECT_ID);
             	preparedStatement.setString(1,disciplineData.getSport() );
             	preparedStatement.setString(2,disciplineData.getDiscipline());
             	preparedStatement.setString(3,disciplineData.getEvent());
@@ -84,7 +85,7 @@ public class OlympicDetailsDao {
             		id=result.getInt(1);
             	}
 	            
-            		prepStatement=DbConnection.getConnection().prepareStatement("insert into athlete values(?,?,?,?,?,?,?)");
+            		prepStatement=DbConnection.getConnection().prepareStatement(QueryConstants.INSERT_ATHLETE);
             		
             		prepStatement.setString(1, disciplineData.getAthlete());
             		prepStatement.setString(2, disciplineData.getCountry());
@@ -107,7 +108,7 @@ public class OlympicDetailsDao {
     {
     	Map<Integer, String>hostValues=new LinkedHashMap<Integer, String>();
     	Statement statement=DbConnection.getConnection().createStatement();
-		 ResultSet resultset = statement.executeQuery("select * from host") ; 
+		 ResultSet resultset = statement.executeQuery(QueryConstants.SELECT_HOST) ; 
 		 while(resultset.next())
 		 {
 			 int year=Integer.parseInt(resultset.getString(1));
@@ -124,7 +125,7 @@ public class OlympicDetailsDao {
         
 		try{			 
 		  Statement getRecord=DbConnection.getConnection().createStatement();
-		  String query="select sport,discipline,event from discipline";
+		  String query=QueryConstants.SELECT_ALL_FROM_DISCIPLINE;
 		  resultset=getRecord.executeQuery(query);
 		  while(resultset.next())
 		  {
@@ -175,7 +176,7 @@ public class OlympicDetailsDao {
     {
     	Set<String>countryValues=new HashSet<>();
     	Statement statement=DbConnection.getConnection().createStatement();
-		 ResultSet resultset = statement.executeQuery("select country from athlete") ; 
+		 ResultSet resultset = statement.executeQuery(QueryConstants.SELECT_COUNTRY) ; 
 		 while(resultset.next())
 		 {
 			 countryValues.add(resultset.getString(1));
@@ -190,7 +191,7 @@ public class OlympicDetailsDao {
 		try {
              String []s=listData.split(",");
   
-         	preparedStatement=DbConnection.getConnection().prepareStatement("select id from discipline where sport=? and discipline=? and event=?");
+         	preparedStatement=DbConnection.getConnection().prepareStatement(QueryConstants.SELECT_ID);
         	preparedStatement.setString(1,s[2] );
         	preparedStatement.setString(2,s[3]);
         	preparedStatement.setString(3,s[7]);
@@ -199,7 +200,7 @@ public class OlympicDetailsDao {
         	{
         		id=resultId.getInt(1);
         	}
-        	preparedStatement=DbConnection.getConnection().prepareStatement("insert into athlete values(?,?,?,?,?,?,?)");
+        	preparedStatement=DbConnection.getConnection().prepareStatement(QueryConstants.INSERT_ATHLETE);
     		
     		preparedStatement.setString(1,s[4]);
     		preparedStatement.setString(2, s[5]);
@@ -248,7 +249,7 @@ public class OlympicDetailsDao {
    	 PreparedStatement preparedStatement;
 		try {	
  
-        	preparedStatement=DbConnection.getConnection().prepareStatement("select id from discipline where sport=? and discipline=? and event=?");
+        	preparedStatement=DbConnection.getConnection().prepareStatement(QueryConstants.SELECT_ID);
        	preparedStatement.setString(1,sport );
        	preparedStatement.setString(2,discipline);
        	preparedStatement.setString(3,event);
@@ -258,7 +259,7 @@ public class OlympicDetailsDao {
        		id=resultId.getInt(1);
        	}
 
-       	preparedStatement=DbConnection.getConnection().prepareStatement("update athlete set athlete=? where year=? and event_id=? and country=? and gender=? and medal=? and athlete=?");
+       	preparedStatement=DbConnection.getConnection().prepareStatement(QueryConstants.UPDATE_ATHLETE);
    		
        	preparedStatement.setString(1, newAthlete);
    		preparedStatement.setInt(2,Integer.parseInt(year));
@@ -269,7 +270,7 @@ public class OlympicDetailsDao {
    		preparedStatement.setString(7, oldAthlete);
    		preparedStatement.executeUpdate();
 
-   		preparedStatement=DbConnection.getConnection().prepareStatement("select athlete from athlete where year=? and event_id=? and country=? and gender=? and medal=? and display_id=?");
+   		preparedStatement=DbConnection.getConnection().prepareStatement(QueryConstants.SELECT_ATHLETE);
    		
    		preparedStatement.setInt(1,Integer.parseInt(year));
    		preparedStatement.setInt(2, id);
@@ -322,7 +323,7 @@ public class OlympicDetailsDao {
     	int id=0;
    	 PreparedStatement preparedStatement;
 		try {	
-        preparedStatement=DbConnection.getConnection().prepareStatement("select id from discipline where sport=? and discipline=? and event=?");
+        preparedStatement=DbConnection.getConnection().prepareStatement(QueryConstants.SELECT_ID);
        	preparedStatement.setString(1,sport );
        	preparedStatement.setString(2,discipline);
        	preparedStatement.setString(3,event);
@@ -331,7 +332,7 @@ public class OlympicDetailsDao {
        	{
        		id=resultId.getInt(1);
        	}
-       	preparedStatement=DbConnection.getConnection().prepareStatement("select athlete from athlete where year=? and event_id=? and country=? and gender=? and medal=? and display_id=?");
+       	preparedStatement=DbConnection.getConnection().prepareStatement(QueryConstants.SELECT_ATHLETE);
    		
    		preparedStatement.setInt(1,Integer.parseInt(year));
    		preparedStatement.setInt(2, id);
@@ -385,7 +386,7 @@ public class OlympicDetailsDao {
    	 PreparedStatement preparedStatement;
 		try {	
  
-        	preparedStatement=DbConnection.getConnection().prepareStatement("select id from discipline where sport=? and discipline=? and event=?");
+        	preparedStatement=DbConnection.getConnection().prepareStatement(QueryConstants.SELECT_ID);
        	preparedStatement.setString(1,sport );
        	preparedStatement.setString(2,discipline);
        	preparedStatement.setString(3,event);
@@ -394,7 +395,7 @@ public class OlympicDetailsDao {
        	{
        		id=resultId.getInt(1);
        	}
-       	preparedStatement=DbConnection.getConnection().prepareStatement("update athlete set display_id=? where year=? and event_id=? and country=? and gender=? and medal=? and athlete=?");
+       	preparedStatement=DbConnection.getConnection().prepareStatement(QueryConstants.UPDATE_ATHLETE_TABLE);
    		
        	preparedStatement.setString(1, "0");
    		preparedStatement.setInt(2,Integer.parseInt(year));
@@ -405,7 +406,7 @@ public class OlympicDetailsDao {
    		preparedStatement.setString(7, athlete);
    		preparedStatement.executeUpdate();
    		
-   		preparedStatement=DbConnection.getConnection().prepareStatement("select athlete from athlete where year=? and event_id=? and country=? and gender=? and medal=? and display_id=?");
+   		preparedStatement=DbConnection.getConnection().prepareStatement(QueryConstants.SELECT_ATHLETE);
    		
    		preparedStatement.setInt(1,Integer.parseInt(year));
    		preparedStatement.setInt(2, id);
@@ -491,11 +492,11 @@ public class OlympicDetailsDao {
     			}
     			System.out.println(queryFinal);
     			System.out.println(sportSelect);
-    			String fullQuery="select y.year,y.city,d.sport,d.discipline,a.athlete,a.country,a.gender,d.event,a.medal from host y,discipline d,athlete a";
+    			String fullQuery=QueryConstants.SELECT_ALL;
     			if(queryFinal.equals(""))
-    			fullQuery=fullQuery+" where y.year=a.year and a.event_id=d.id and a.display_id=\"1\"";
+    			fullQuery=fullQuery+QueryConstants.DISPLAY_RECORD;
     			else
-    				fullQuery=fullQuery+queryFinal+" and y.year=a.year and a.event_id=d.id and a.display_id=\"1\"";
+    				fullQuery=fullQuery+queryFinal+QueryConstants.DISPLAY_RECORDS;
     			
     			fullQuery=fullQuery+sortQuery;
     			System.out.println(fullQuery);

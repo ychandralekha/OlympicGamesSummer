@@ -5,23 +5,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Login page</title>
+<link rel="stylesheet" type="text/css" href="LoginStyle.css">
 </head>
 <style>
-.container {
-  position: relative;
-  width: 50%;
-}
-
-.image {
-  display: block;
-  width: 100%;
-  height: auto;
-}
 
 </style>
-<div class="container">
-  <img src="images\olympic.jpg" alt="Avatar" class="image">
-  </div>
 <script type="text/javascript">
 function S_click(){
 	val1 = document.getElementById("username").value;
@@ -31,11 +19,13 @@ function S_click(){
 	 } 
 	}
 </script>
-<body background="images\olympic.jpg">
-<h2 align="center">Login Page</h2>
+<body>
+<br><br>
+<h2 align="center">Olympics Games Summer</h2>
 <h3 style="color:red">${error}</h3>
 <form action="OlympicUserLoginServlet" method="post">
 <table align="center">
+<br><br><br><br><br><br><br><br>
 <tr><td><a href="RegisterPage.jsp">New User?</a></td></tr>
 <tr><td>Username: </td>
 <td><input type="text" name="username" id="username"></td></tr>

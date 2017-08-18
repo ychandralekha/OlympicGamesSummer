@@ -5,11 +5,19 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>User Login</title>
+<link rel="stylesheet" type="text/css" href="userLoginPageStyle.css">
 </head>
+
 <body>
+<div class="header">
 <h2 align="center">Hey ${userName}! What do you want to do today?</h2>
+</div>
+
 <form action="OlympicUserOperationsServlet" method="post">
 <table>
+<br>
+<br><br>
+<br>
 <tr>
 <td>
 <input type="radio" name="radio" value="addRecord" checked/>
@@ -21,7 +29,7 @@
 <td>
 <input type="radio" name="radio" value="updateRecord"/>
 </td>
-<td> Update/delete a record.
+<td> Update or delete a record.
 </td>
 </tr>
 <tr>

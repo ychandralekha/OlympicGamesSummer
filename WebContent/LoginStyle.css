@@ -1,0 +1,16 @@
+@CHARSET "ISO-8859-1";
+
+
+body{
+  background:url("images/olympic.jpg") no-repeat;
+	background-size:1200px 700px;
+}
+h2 {
+    font-family: georgia;
+     font-style: italic;
+  font-size: 30px;
+     
+}
+td{
+font-variant: small-caps;
+}
