@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.cts.exception.OlympicDataException;
+import com.cts.olympicpojo.OlympicUserPojo;
 import com.cts.service.OlympicService;
+import com.cts.util.UserFields;
 
 public class OlympicUserRegisterationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -19,7 +21,9 @@ public class OlympicUserRegisterationServlet extends HttpServlet {
 		Map<String, String[]>keyValueSet=request.getParameterMap();
 		OlympicService olympicService=new OlympicService();	
 		try {
-				if(olympicService.loadUserField(keyValueSet))
+			UserFields fields=new UserFields();
+			OlympicUserPojo olympicUser=fields.userFields(keyValueSet);
+				if(olympicService.loadUserField(olympicUser))
 				{
 					RequestDispatcher requestDispatcher=request.getRequestDispatcher("Login.jsp");
 					requestDispatcher.forward(request, response);
@@ -29,8 +33,6 @@ public class OlympicUserRegisterationServlet extends HttpServlet {
 			}
 			RequestDispatcher requestDispatcher=request.getRequestDispatcher("RegisterPage.jsp");
 			requestDispatcher.forward(request, response);
-			
-		
 	}
 
 }

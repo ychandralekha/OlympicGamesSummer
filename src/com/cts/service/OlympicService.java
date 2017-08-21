@@ -7,6 +7,7 @@ import java.util.Map;
 import com.cts.dao.AdminValidation;
 import com.cts.dao.UserValidation;
 import com.cts.exception.OlympicDataException;
+import com.cts.olympicpojo.OlympicDataPojo;
 import com.cts.olympicpojo.OlympicUserPojo;
 
 public class OlympicService {
@@ -37,14 +38,10 @@ public class OlympicService {
 		return status;
 	}
 
-	public boolean loadUserField(Map<String, String[]> userFields)
+	public boolean loadUserField(OlympicUserPojo olympicPojo)
 			throws OlympicDataException {
 		boolean status = false;
-		OlympicUserPojo olympicPojo = new OlympicUserPojo(
-				userFields.get("firstName")[0], userFields.get("lastName")[0],
-				userFields.get("userName")[0], userFields.get("datepicker")[0],
-				userFields.get("email")[0], userFields.get("phoneNumber")[0],
-				userFields.get("password")[0]);
+		
 		AdminValidation adminValidation = new AdminValidation();
 		status = adminValidation.loadUserData(olympicPojo);
 		return status;

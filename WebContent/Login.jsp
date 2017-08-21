@@ -9,6 +9,7 @@
 </head>
 <script type="text/javascript">
 function S_click(){
+	
 	val1 = document.getElementById("username").value;
 	val2 = document.getElementById("password").value;
 	 if(val1=="" && val2==""){
@@ -22,7 +23,7 @@ function S_click(){
 <h3 style="color:red">${error}</h3>
 <form action="OlympicUserLoginServlet" method="post">
 <table align="center" cellspacing="10">
-<br><br><br><br><br><br><br><br>
+<br><br><br><br><br>
 <tr><td><a href="RegisterPage.jsp">New User?</a></td></tr>
 <tr><td>Username: </td>
 <td><input type="text" name="username" id="username"></td></tr>

@@ -31,18 +31,21 @@
     $( "#datepicker" ).datepicker();
   } );
   function validateForm() {
-	    var x = document.forms["myForm"]["email"].value;
-	    var atpos = x.indexOf("@");
-	    var dotpos = x.lastIndexOf(".");
-	    if (atpos<1 || dotpos<atpos+2 || dotpos+2>=x.length) {
+
+	    var email = document.forms["myForm"]["email"].value;
+
+	    var atpos = email.indexOf("@");
+	    var dotpos = email.lastIndexOf(".");
+	    if (atpos<1 || dotpos<atpos+2 || dotpos+2>=email.length) {
 	        alert("Not a valid e-mail address");
 	        return false;
 	    }
 	}
   </script>
 <body background="images\olympic.jpg">
-<h2 align="center">Registation Page</h2><br><br>
+<h2 align="center">Registation Page</h2>
 <h3 style="color:red">${error}</h3>
+<h6 align="center"><a href="Login.jsp">EXISTING USER? LOG IN!</a></h6>
 <form name="myForm" action="OlympicUserRegisterationServlet" method="post" onsubmit="return validateForm();">
 <table align="center">
 <tr><td>First Name:</td>
