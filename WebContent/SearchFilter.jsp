@@ -9,7 +9,9 @@
 </head>
 <link rel="stylesheet" type="text/css" href="userLoginPageStyle.css">
 <body>
+<h5>USER: ${userName}</h5>
 <h2 align="center">Hey ${userName}, Make your choice!</h2>
+<div class="logout"><a href="Login.jsp">LOG OUT</a></div>
 <br>
 <br>
 <form action="OlympicUserOperationsServlet" method="post">

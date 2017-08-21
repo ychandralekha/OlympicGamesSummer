@@ -9,8 +9,9 @@
 <title>Admin Welcome Page</title>
 </head>
 <body>
+<h5>USER:${userName}</h5>
 <h2 align="center">Welcome ${userName}!</h2>
-
+<div class="logout"><a href="Login.jsp">LOG OUT</a></div>
 <h3 style="color:grey">${error}</h3>
 <form action="OlympicAdminServlet" method="post">
 <table>
@@ -31,7 +32,6 @@
 </table>
 <br>
 <br>
-<a style="color:white" href="Login.jsp">LOG OUT</a>
 </form>
 </body>
 </html>

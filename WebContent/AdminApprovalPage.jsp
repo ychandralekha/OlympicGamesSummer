@@ -8,8 +8,9 @@
 <title>Admin Approval page</title>
 </head>
 <link rel="stylesheet" type="text/css" href="AdminPages.css">
-
+<h5>USER: ${userName}</h5>
 <h2 align="center">Hey ${userName}, Let's check out today's approval requests !</h2>
+<div class="logout"><a href="Login.jsp">LOG OUT</a></div>
 <br>
 <h3 style="color:grey">${error}</h3>
 <body>
@@ -23,7 +24,7 @@
 <td><input type="radio" name="${out}" value="disapprove">disapprove</td>
 </tr>
  </c:forEach>
- <tr><td colspan="3"><input align="left" type="submit" value="submit" name="approvalValidation"></td></tr>
+ <tr><td align="center" colspan="3"><input type="submit" value="submit" name="approvalValidation"></td></tr>
 
 </table>
 <br>

@@ -20,6 +20,7 @@ import javax.servlet.http.HttpSession;
 
 import com.cts.olympicpojo.OlympicDataPojo;
 import com.cts.service.OlympicDataService;
+import com.cts.util.UpdatePageUtil;
 
 public class OlympicUserOperationsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -146,7 +147,9 @@ public class OlympicUserOperationsServlet extends HttpServlet {
 			Map<String, String[]>display=request.getParameterMap();
 			OlympicDataService olympicService=new OlympicDataService();
 			List<OlympicDataPojo>displayRecord=new ArrayList<OlympicDataPojo>();
-			displayRecord=olympicService.displayRecord(display);
+			UpdatePageUtil record=new UpdatePageUtil();
+			OlympicDataPojo olympicRecord=record.displaySelectedRecord(display);
+			displayRecord=olympicService.displayRecord(olympicRecord);
 			
 			Map<Integer, String>hostValues=new LinkedHashMap<Integer, String>();
 			Map<String, Map<String,List<String>>>sportDisciplineEvent=new HashMap<>();
@@ -209,10 +212,10 @@ public class OlympicUserOperationsServlet extends HttpServlet {
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}
-				
-				
+					UpdatePageUtil record=new UpdatePageUtil();
 					List<OlympicDataPojo>updateRecord=new ArrayList<OlympicDataPojo>();
-					updateRecord=olympicService.updateRecord(options,athleteOld,athlete);
+					OlympicDataPojo olympicData=record.updateRecordTable(options);
+					updateRecord=olympicService.updateRecord(olympicData,athleteOld,athlete);
 					request.setAttribute("displayRecord", updateRecord);
 					RequestDispatcher requestDispatcher=request.getRequestDispatcher("UpdatePage.jsp");
 					requestDispatcher.forward(request,response);
@@ -237,7 +240,9 @@ public class OlympicUserOperationsServlet extends HttpServlet {
 					}
 				
 					List<OlympicDataPojo>deleteRecord=new ArrayList<OlympicDataPojo>();
-					deleteRecord=olympicService.deleteRecord(options,value[0]);
+					UpdatePageUtil record=new UpdatePageUtil();
+					OlympicDataPojo olympicData=record.updateRecordTable(options);
+					deleteRecord=olympicService.deleteRecord(olympicData,value[0]);
 					request.setAttribute("displayRecord", deleteRecord);
 					RequestDispatcher requestDispatcher=request.getRequestDispatcher("UpdatePage.jsp");
 					requestDispatcher.forward(request,response);

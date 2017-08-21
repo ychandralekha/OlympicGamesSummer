@@ -9,9 +9,11 @@
 </head>
 
 <body>
+<h5>USER: ${userName}</h5>
 <div class="header">
 <h2 align="center">Hey ${userName}! What do you want to do today?</h2>
 </div>
+<div class="logout"><a href="Login.jsp">LOG OUT</a></div>
 
 <form action="OlympicUserOperationsServlet" method="post">
 <table cellspacing="10" cellpadding="10">

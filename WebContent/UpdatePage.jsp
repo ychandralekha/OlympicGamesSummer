@@ -43,7 +43,9 @@ function newAthlete(a)
 </script>
 </head>
 <body>
+<h5>USER: ${userName}</h5>
 <h2 align="center">Hey ${userName}, Select your choice and update.</h2>
+<div class="logout"><a href="Login.jsp">LOG OUT</a></div>
 <form action="OlympicUserOperationsServlet" method="post">
 <table cellspacing="10" cellpadding="10">
 

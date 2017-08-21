@@ -9,9 +9,12 @@
 <title>Admin Login</title>
 </head>
 <body>
+<h5>USER: ${userName}</h5>
 <h2 align="center">Hi ${userName}! Let's upload!</h2>
+<div class="logout"><a href="Login.jsp">LOG OUT</a></div>
 <h3 style="color:grey">${error}</h3>
 <form action="OlympicDataServlet" method="post">
+<br><br><br>
 <h4 >Select a file:<input type="file" name="file"/><br/><br/>  
 <input type="submit" value="submit"/> </h4>
 <br>
