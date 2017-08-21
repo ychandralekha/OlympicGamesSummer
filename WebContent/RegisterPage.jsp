@@ -13,12 +13,12 @@
   <style>
 .container {
   position: relative;
-  width: 50%;
+  width: 45%;
 }
 
 .image {
   display: block;
-  width: 100%;
+  width: 90%;
   height: auto;
 }
 

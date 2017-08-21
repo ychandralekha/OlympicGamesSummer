@@ -7,27 +7,27 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Search and Filter page</title>
 </head>
+<link rel="stylesheet" type="text/css" href="userLoginPageStyle.css">
 <body>
 <h2 align="center">Hey ${userName}, Make your choice!</h2>
 <br>
 <br>
 <form action="OlympicUserOperationsServlet" method="post">
-    Filter by Year:<br>
     Enter the Start year:
     <input type="text" name="year" value="" />
     Enter the end year:
      <input type="text" name="year" value="" />
 <br><br>
-    Filter by Athlete:
+    Enter the Athlete:
     <input type="text" name="athlete" value="" />
 <br><br>
-    Filter by Sport:
+    Enter the Sport:
     <input type="text" name="sport" value="" />
 <br><br>
-    Filter by Country:
+    Enter the Country:
     <input type="text" name="country" value="" /> 
 <br><br>
-    Filter by Gender:
+    Enter the Gender:
     <input type="text" name="gender" value="" />
 
 <br><br>

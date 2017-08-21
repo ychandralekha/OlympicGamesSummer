@@ -15,5 +15,6 @@ font-variant: small-caps;
 }
 body{
   background:url("images/london.jpg") no-repeat;
-	background-size:1200px 800px;
+	background-size:cover;
+	background-attachment: fixed;
 }

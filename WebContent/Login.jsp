@@ -7,9 +7,6 @@
 <title>Login page</title>
 <link rel="stylesheet" type="text/css" href="LoginStyle.css">
 </head>
-<style>
-
-</style>
 <script type="text/javascript">
 function S_click(){
 	val1 = document.getElementById("username").value;
@@ -24,7 +21,7 @@ function S_click(){
 <h2 align="center">Olympics Games Summer</h2>
 <h3 style="color:red">${error}</h3>
 <form action="OlympicUserLoginServlet" method="post">
-<table align="center">
+<table align="center" cellspacing="10">
 <br><br><br><br><br><br><br><br>
 <tr><td><a href="RegisterPage.jsp">New User?</a></td></tr>
 <tr><td>Username: </td>

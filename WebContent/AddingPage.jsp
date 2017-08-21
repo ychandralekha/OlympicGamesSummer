@@ -6,6 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Adding a page</title>
+<link rel="stylesheet" type="text/css" href="userLoginPageStyle.css">
 <script type="text/javascript">
 function getDiscipline()
 {	
@@ -24,7 +25,7 @@ function getEvent()
 <body>
 <h2 align="center">Hi ${userName}, Let's fill in the details to add.</h2>
 <form action="OlympicUserOperationsServlet" method="post">
-<table>
+<table  cellspacing="10" cellpadding="10">
 
 <td>Select Sport</td><td>
 <select name="sportselect" id="sport" onchange="getDiscipline()" >

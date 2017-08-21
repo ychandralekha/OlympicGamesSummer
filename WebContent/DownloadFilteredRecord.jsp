@@ -5,14 +5,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Dwonload page</title>
 </head>
+<link rel="stylesheet" type="text/css" href="userLoginPageStyle.css">
 <body>
 <h2 align="center">Hey ${userName}, We applied your choice now..!</h2>
 <br>
 <br>
 <form action="OlympicUserOperationsServlet" method="post">
- <TABLE bgcolor="#D3D3D3" BORDER="1">
+ <TABLE cellspacing="10" cellpadding="10">
             <TR>
                 <TH>Year</TH>
                 <TH>City</TH>

@@ -14,7 +14,7 @@
 </div>
 
 <form action="OlympicUserOperationsServlet" method="post">
-<table>
+<table cellspacing="10" cellpadding="10">
 <br>
 <br><br>
 <br>

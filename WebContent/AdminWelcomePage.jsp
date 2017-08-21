@@ -3,6 +3,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="AdminPages.css">
+
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Admin Welcome Page</title>
 </head>
@@ -29,7 +31,7 @@
 </table>
 <br>
 <br>
-<a href="Login.jsp">LOG OUT</a>
+<a style="color:white" href="Login.jsp">LOG OUT</a>
 </form>
 </body>
 </html>

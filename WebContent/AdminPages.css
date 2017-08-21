@@ -1,21 +1,21 @@
 @CHARSET "ISO-8859-1";
-
-
 body{
-  background:url("images/olympic.jpg") no-repeat;
-	background-size:1200px 700px;
+  background:url("images/rings.jpg") no-repeat;
+	background-size:cover;
 	background-position: top;
+	background-attachment: fixed;
 }
 h2 {
     font-family: georgia;
      font-style: italic;
   font-size: 30px;
+  color:white;
      
 }
-td{
+td,table,h4{
 font-variant: small-caps;
+color:white;
 }
 a{
-	color:#0000ff;
+	color:white;
 }
-

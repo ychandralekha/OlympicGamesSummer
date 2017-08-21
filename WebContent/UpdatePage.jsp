@@ -6,6 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Updating a page</title>
+<link rel="stylesheet" type="text/css" href="userLoginPageStyle.css">
 <style>
 input[readonly]{
 background-color: #F3F3F3;
@@ -44,7 +45,7 @@ function newAthlete(a)
 <body>
 <h2 align="center">Hey ${userName}, Select your choice and update.</h2>
 <form action="OlympicUserOperationsServlet" method="post">
-<table>
+<table cellspacing="10" cellpadding="10">
 
 <tr><td>Select Sport</td><td>
 <select name="sportselect" id="sport" onchange="getDiscipline()" >
@@ -127,7 +128,7 @@ function newAthlete(a)
 </table>
 </form>
 <form action="OlympicUserOperationsServlet" method="post">
-   <TABLE>
+   <TABLE cellspacing="10" cellpadding="10">
             <TR>
                 <TH>Year</TH>
                 <TH>City</TH>
